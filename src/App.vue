@@ -1,28 +1,25 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<chat-window
+		:current-user-id="currentUserId"
+		:rooms="rooms"
+		:messages="messages"
+	/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ChatWindow from 'vue-advanced-chat'
+import 'vue-advanced-chat/dist/vue-advanced-chat.css'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	components: {
+		ChatWindow,
+	},
+	data() {
+		return {
+			rooms: [],
+			messages: [],
+			currentUserId: 1234,
+		}
+	},
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
