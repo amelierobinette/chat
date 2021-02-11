@@ -48,13 +48,31 @@ export default {
 			}, 0)
 		},
 		sendMessage(params) {
+			const date =
+				new Date().getDate() +
+				' ' +
+				new Date().toLocaleString('default', { month: 'long' }) +
+				' ' +
+				new Date().getFullYear()
+
+			const timestamp = new Date().toLocaleString('default', {
+				hour: 'numeric',
+				minute: 'numeric',
+				hour12: false,
+			})
+
 			console.log(params)
 			messages.push({
 				_id: new Date().getTime(),
 				content: params.content,
 				sender_id: this.currentUserId,
+				date: date,
+				timestamp: timestamp,
+				distributed: true,
 			})
 		},
 	},
 }
 </script>
+
+<style></style>
