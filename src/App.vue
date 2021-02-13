@@ -8,6 +8,7 @@
 		:messages-loaded="messagesLoaded"
 		@fetch-messages="fetchMessages"
 		@send-message="sendMessage"
+		@add-room="addRoom"
 	/>
 </template>
 
@@ -23,7 +24,7 @@ export default {
 	},
 	data() {
 		return {
-			roomId: 1, //room selectionée dès le début
+			roomId: 'room_1', //room selectionée dès le début
 			rooms: rooms,
 			messages: [],
 			currentUserId: 1234,
@@ -33,17 +34,15 @@ export default {
 	mounted() {},
 	methods: {
 		fetchMessages({ room, options }) {
-			console.log(room)
-			console.log(options)
-
 			//options.reset = je clique sur une nouvelle room
 			if (options.reset) {
 				this.messagesLoaded = false
+				this.roomId = room.roomId
 			}
 
 			// use timeout to imitate async server fetched data
 			setTimeout(() => {
-				this.messages = messages
+				this.messages = messages[this.roomId]
 				this.messagesLoaded = true
 			}, 0)
 		},
@@ -61,15 +60,38 @@ export default {
 				hour12: false,
 			})
 
-			console.log(params)
-			messages.push({
+			messages[this.roomId].push({
 				_id: new Date().getTime(),
 				content: params.content,
-				sender_id: this.currentUserId,
+				senderId: this.currentUserId,
 				date: date,
 				timestamp: timestamp,
 				distributed: true,
 			})
+		},
+		addRoom() {
+			const roomId = 'room_' + new Date().getTime()
+
+			rooms.push({
+				roomId: roomId,
+				roomName: 'Room 2',
+				avatar: 'https://i.pravatar.cc/30',
+				users: [
+					{
+						_id: 1234,
+						username: 'John Doe',
+						avatar: 'https://i.pravatar.cc/30',
+					},
+					{
+						_id: 4321,
+						username: 'John Snow',
+						avatar: 'https://i.pravatar.cc/30',
+					},
+				],
+			})
+
+			this.roomId = roomId
+			this.messages = []
 		},
 	},
 }
