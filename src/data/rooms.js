@@ -5,7 +5,7 @@ export const rooms = [
 		avatar: 'https://i.pravatar.cc/30',
 		lastMessage: {
 			content: 'Last message received',
-			sender_id: 1234,
+			senderId: 1234,
 			username: 'John Doe',
 			timestamp: '10:20',
 		},

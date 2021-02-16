@@ -68,6 +68,16 @@ export default {
 				timestamp: timestamp,
 				distributed: true,
 			})
+			console.log(params.content)
+
+			const roomIndex = rooms.findIndex((room) => room.roomId === this.roomId)
+
+			rooms[roomIndex].lastMessage = {
+				content: params.content,
+				senderId: 1234,
+				username: 'John Doe',
+				timestamp: timestamp,
+			}
 		},
 		addRoom() {
 			const roomId = 'room_' + new Date().getTime()
@@ -89,6 +99,8 @@ export default {
 					},
 				],
 			})
+			//création d'une nouvelle room dans les messages
+			messages[roomId] = []
 
 			this.roomId = roomId
 			this.messages = []
